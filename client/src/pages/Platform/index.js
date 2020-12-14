@@ -10,8 +10,8 @@ import VideoCard from '../../components/VideoCard';
 
 import { Content, VideoList, NoDataMessage, AddButton } from './styles';
 
-const ipfsClient = require('ipfs-http-client');
-const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+const IPFS = require('ipfs-api');
+const ipfs = IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
 function Platform({ loading, refresh, account, videoContract, allVideos, allLikes, setRefresh }) {
   const [showUploadVideo, setShowUploadVideo] = useState(false);
@@ -26,7 +26,6 @@ function Platform({ loading, refresh, account, videoContract, allVideos, allLike
   }, [allVideos, refresh]);
 
   function prepareVideoToIPFS(event) {
-    //? converte o arquivo, assim que seu upload é feito no input, para um buffer/formato ok para o ipfs e deixa ele pronto para ser processado e colocado no ipfs
     event.preventDefault();
     const uploadedFile = event.target.files[0];
     setFileVideoName(uploadedFile?.name);
@@ -42,7 +41,10 @@ function Platform({ loading, refresh, account, videoContract, allVideos, allLike
         console.log('[ERROR]', err);
         return;
       }
-      videoContract.methods.uploadVideo(res[0].hash, videoTitle).send({ from: account }).then(() => setRefresh(true));
+      console.log('[SUCCESS]', res);
+      videoContract.methods.uploadVideo(res[0].hash, videoTitle).send({ from: account })
+        .then(() => setRefresh(true))
+        .catch(e => console.log('[ERR]', e));
       setUploadingVideo(false);
       setShowUploadVideo(false);
     });
@@ -55,7 +57,6 @@ function Platform({ loading, refresh, account, videoContract, allVideos, allLike
   }
 
   function handleSelectVideo(item) {
-    //? verifica se o usuário que está logado curtiu o video
     const auxItem = item;
     auxItem.isLiked = allLikes.filter(likeObj => likeObj.hash === item.hash && likeObj.user === account).length !== 0;
     setSelectedVideo(auxItem);

@@ -21,7 +21,6 @@ function App() {
   useEffect(() => {
     if (!!reloadApp) {
       async function handleBlockchainConnection() {
-        await loadWeb3();
         await loadBlockchainData();
       }
       handleBlockchainConnection();
@@ -29,19 +28,8 @@ function App() {
     }
   }, [reloadApp]);
 
-  async function loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    }
-    else if (window.web3)
-      window.web3 = new Web3(window.web3.currentProvider);
-    else
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
-  };
-
   async function loadBlockchainData() {
-    const web3 = window.web3;
+    const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
     const accounts = await web3.eth.getAccounts();
     if (accounts[0]) setAccount(accounts[0]);

@@ -10,6 +10,7 @@ export const VideoContainer = styled.div`
   width: 168px;
   height: 100px;
   margin-right: 10px;
+  overflow: hidden;
 
   video {
     width: 100%;

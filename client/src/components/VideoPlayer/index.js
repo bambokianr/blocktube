@@ -9,13 +9,14 @@ function VideoPlayer({ item, videoContract, account, setRefresh }) {
   const [likesCount, setLikesCount] = useState(0);
 
   useEffect(() => {
-    console.log('item', item);
     setLikesCount(item?.videoLikesCount);
     setIsLiked(item?.isLiked);
   }, [item]);
 
   function handleLike() {
-    videoContract.methods.addLikeToVideo(item.hash).send({ from: account }).then(() => setRefresh(true));
+    videoContract.methods.addLikeToVideo(item.hash).send({ from: account })
+      .then(() => setRefresh(true))
+      .catch(e => console.log('[ERR]', e));
   }
 
   return (
