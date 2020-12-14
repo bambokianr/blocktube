@@ -40,7 +40,7 @@ A imagem abaixo representa uma ideia geral da arquitetura do projeto. Nela, é p
 
 Para evidenciar, de maneira detalhada, as tecnologias empregadas no desenvolvimento e na execução, a imagem a seguir é apresentada.
 
-<img src="./imgs/arq1.png" align="center" width="480" />
+<img src="./imgs/arq2.png" align="center" width="480" />
 
 O contrato inteligente foi implementado, compilado e administrado na IDE online [Remix](https://remix.ethereum.org/) – que permite a criação de Ethereum Smart Contracts implementados a partir da linguagem [Solidity](https://docs.soliditylang.org/en/v0.7.4/). A partir dela, foi possível realizar o deploy do contrato na rede privada construída fazendo uso do console [Geth](https://geth.ethereum.org/).
 O uso da carteira criptográfica, como já mencionado, se deu pela extensão [Metamask](https://metamask.io/), possibilitando a conexão da aplicação executada no browser diretamente com a rede blockchain privada e permitindo realizar transações em blockchain, garantindo as funcionalidades da aplicação. Em linhas gerais, Ethereum wallet é quem transforma o browser comum em um blockchain browser.
